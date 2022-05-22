@@ -99,5 +99,4 @@ def hae_lainaa(lainan_maara, maksuaika, kk_tulot):
 #Ulkomaan maksu? Jos kylla, niin perii lisamaksun. Muuten normisiirto
 #Pyytaa kayttajalta tiedon maasta johon maksu lahetetaan
 #Vertaa RestrictedNations.csv
-def kyc(maksu):
-    pass
+#def kyc(summa):
