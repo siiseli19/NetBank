@@ -6,6 +6,7 @@ from datetime import date
 # Kayttoliittyma josta ohjataan applikaatiota
 # Pyorii kunnes kayttaja valitsee 'Q'
 def user_interface():
+
     valinta = None
     while True:
         print("-------------------------------------------")
@@ -19,46 +20,49 @@ def user_interface():
         print("Seuraa kulutsta -- K")
         print("-------------------------------------------")
 
-        valinta = str(input().upper())
+        try:
+            valinta = str(input().upper())
 
-        if valinta == "S":
-            saaja = input("Syota maksun saajan nimi")
-            summa = float(input("Syota siirrettava summa"))
-            pvm = date.today()
+            if valinta == "S":
+                saaja = input("Syota maksun saajan nimi")
+                summa = float(input("Syota siirrettava summa"))
+                pvm = date.today()
 
-            if summa < 1000 and summa > 0:
-                tilisiirto(saaja, summa, pvm)
-
-            elif summa > 0 and summa >= 1000:
-                cont = input("Siirrettävä summa yli 1000,\njos haluat jatkaa paina 'Y' ").upper()
-                if cont == 'Y':
-                    print('Suoritetaan siirto')
+                if summa < 1000 and summa > 0:
                     tilisiirto(saaja, summa, pvm)
 
-            else:
-                print('Toimintoa ei voitu suorittaa')
+                elif summa > 0 and summa >= 1000:
+                    cont = input("Siirrettävä summa yli 1000,\njos haluat jatkaa paina 'Y' ").upper()
+                    if cont == 'Y':
+                        print('Suoritetaan siirto')
+                        tilisiirto(saaja, summa, pvm)
 
-        elif valinta == "T":
-            print("Tulostetaan tilitapahtumat:")
-            tilitapahtumat()
+                else:
+                    print('Toimintoa ei voitu suorittaa')
 
-        elif valinta == "K":
-            seuraa_kulutusta()
+            elif valinta == "T":
+                print("Tulostetaan tilitapahtumat:")
+                tilitapahtumat()
 
-        elif valinta == "H":
-            lainan_maara = float(input('Syota haluttu lainan maara, min:1000eur - max:50 000eur'))
-            maksu_aika = int(input('Syota haluttu maksuaika, min:2v - max:5v'))
-            kk_tulot = input('Syota kuukausitulosi') #Hae csv-filusta
+            elif valinta == "K":
+                seuraa_kulutusta()
 
-            if lainan_maara >= 1000 and lainan_maara <= 5000 and  maksu_aika >=2 and maksu_aika <=5:
-                hae_lainaa(lainan_maara, maksu_aika, kk_tulot)
+            elif valinta == "H":
+                lainan_maara = float(input('Syota haluttu lainan maara, min:1000eur - max:50 000eur'))
+                maksu_aika = int(input('Syota haluttu maksuaika, min:2v - max:5v'))
+                kk_tulot = input('Syota kuukausitulosi') #Hae csv-filusta
 
-            else:
-                print('Jotain meni vikaan :(')
+                if lainan_maara >= 1000 and lainan_maara <= 5000 and  maksu_aika >=2 and maksu_aika <=5:
+                    hae_lainaa(lainan_maara, maksu_aika, kk_tulot)
 
-        elif valinta == "Q":
-            print("Suljetaan sovellus")
-            sysExit()
+        except:
+            print('Jotain meni vikaan... :(')
+
+        finally:
+            if valinta == "Q":
+                    print("Suljetaan sovellus")
+                    sysExit()
+
 
 
 user_interface()
